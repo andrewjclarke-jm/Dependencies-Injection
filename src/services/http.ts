@@ -1,13 +1,12 @@
-import { Logger } from './logger';
+import type { ApiConfig, ILogger } from "../types";
 
-import type { ApiConfig } from '../types';
 export class HTTP {
-  logger: Logger;
+  logger: ILogger;
   apiConfig: ApiConfig;
 
-  constructor(apiConfig: ApiConfig) {
+  constructor(apiConfig: ApiConfig, logger: ILogger) {
     this.apiConfig = apiConfig;
-    this.logger = new Logger();
+    this.logger = logger;
   }
 
   async get(url: string) {
@@ -15,11 +14,15 @@ export class HTTP {
 
     if (response.ok) {
       const responseData = await response.json();
-      this.logger.info(`Status: ${response.status}. Response: ${JSON.stringify(responseData)}`);
+      this.logger.info(
+        `Status: ${response.status}. Response: ${JSON.stringify(responseData)}`
+      );
 
       return responseData;
     } else {
-      this.logger.error(`Status: ${response.status}. Status Text: ${response.statusText}`);
+      this.logger.error(
+        `Status: ${response.status}. Status Text: ${response.statusText}`
+      );
     }
   }
 }
