@@ -4,6 +4,8 @@ export class HTTP {
   logger: ILogger;
   apiConfig: ApiConfig;
 
+  static $inject = ["logger", "apiConfig"];
+
   constructor(apiConfig: ApiConfig, logger: ILogger) {
     this.apiConfig = apiConfig;
     this.logger = logger;
